@@ -1,26 +1,22 @@
-#Part 1 
 from functools import reduce
-dat = open("day_1_dat.txt").read().split("\n")
-
-# Python3 program to find all pairs in 
-# a list of integers with given sum 
-
-def findPairs(lst, K): 
-	res = [] 
-	while lst: 
-		num = lst.pop() 
-		diff = K - num 
-		if diff in lst: 
-			res.append((diff, num)) 
-		
-	res.reverse() 
-	return res 
-
+import itertools
+# Read in the file
+dat = open("/Users/christina/Documents/adventofcode_2020/Day_1/day_1_dat.txt").read().split("\n")
+# Convert the string into a list of ints 
 dat_num = [int(x) for x in dat if x != ""]
 
-# Driver code 
-K = 2020
-answer = findPairs(dat_num, K)[0]
-print(reduce((lambda x, y: x * y), answer))
+def day1_fx(val_ls, n, target=2020):
+	out = itertools.combinations(dat_num, n)
+
+	for x in out:
+		x_sum = sum(x)
+		if x_sum == target:
+			print(reduce((lambda x, y: x * y), x))
 
 
+# Part 1 
+day1_fx(dat_num, 2)
+
+# Part 2 
+day1_fx(dat_num, 3)
+	
