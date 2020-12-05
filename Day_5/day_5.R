@@ -47,3 +47,10 @@ seat_info <- dat %>%
 seat_info %>% 
   summarise(part_1 = max(seat_id))
 
+# Part 2 
+seat_above <- seat_info %>% 
+  arrange(seat_id) %>% 
+  mutate(seat_check = seat_id - lag(seat_id)) %>% 
+  filter(seat_check > 1) %>% 
+  pull(seat_id) 
+seat_above-1
