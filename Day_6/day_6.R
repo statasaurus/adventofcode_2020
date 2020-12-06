@@ -23,10 +23,12 @@ customs %>%
 # Part 2 
 customs %>% 
   map_int(function(x){
-    x %>% 
-      str_split("") %>% 
-      map(as_tibble) %>% 
-      reduce(inner_join, by = "value") %>% 
+    n_party <- length(x)
+    full_x <- str_c(x, collapse = "")
+    answered <- str_split(x, "") %>% unlist() %>% unique()
+    tibble(answered, 
+           n = map_int(answered, ~str_count(full_x, .))) %>% 
+      filter(n == n_party) %>% 
       nrow()
   }) %>% 
   sum()
